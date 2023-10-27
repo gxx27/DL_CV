@@ -1,0 +1,8 @@
+__pycache__/
+*.png
+/work2/data/
+/work2/generate/
+/work2/images/
+/work2/mnist_images/
+/work2/model
+/work3/datasets/
