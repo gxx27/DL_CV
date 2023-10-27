@@ -1,6 +1,6 @@
 # 华中科技大学《深度学习与计算机视觉》课程作业
 
-## work1：单隐藏层神经⽹络的训练
+## work1：单隐藏层神经网络的训练
 visualize.py: make_moon数据集可视化
 
 numpy_version.py: 不使用Pytorch搭建一个单隐藏层神经网络
