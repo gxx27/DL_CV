@@ -24,7 +24,7 @@ linearly.py: 线性插值
 
 amp.py: 使用混合精度训练
 
-conv_attention.py: 使用卷积注意力机制优化模型参数量
+linear_attention.py: 使用线性注意力机制优化原有多头自注意力操作
 
 train_vit.py: ViT训练函数
 

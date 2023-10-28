@@ -117,22 +117,24 @@ if __name__ == '__main__':
     default_num_head = 12
     default_num_layers = 12
     
+    accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, default_patch_size, default_emb_dim, default_num_head, default_num_layers)
+    
     # Grid search
-    accuracy_exp = []
+    # accuracy_exp = []
     # for patch in patch_size:
     #     accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, patch, default_emb_dim, default_num_head, default_num_layers)
     #     accuracy_exp.append(accuracy)
 
-    for emb in emb_dim:
-        accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, default_patch_size, emb, default_num_head, default_num_layers)
-        accuracy_exp.append(accuracy)
+    # for emb in emb_dim:
+    #     accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, default_patch_size, emb, default_num_head, default_num_layers)
+    #     accuracy_exp.append(accuracy)
 
-    for head in num_head:
-        accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, default_patch_size, default_emb_dim, head, default_num_layers)
-        accuracy_exp.append(accuracy)
+    # for head in num_head:
+    #     accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, default_patch_size, default_emb_dim, head, default_num_layers)
+    #     accuracy_exp.append(accuracy)
 
-    for layers in num_layers:
-        accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, default_patch_size, default_emb_dim, default_num_head, layers)
-        accuracy_exp.append(accuracy)
+    # for layers in num_layers:
+    #     accuracy = train_model(trainloader, testloader, lr, input_size, batch_size, dropout_ratio, default_patch_size, default_emb_dim, default_num_head, layers)
+    #     accuracy_exp.append(accuracy)
         
-    print('experiment results are:', accuracy_exp)
+    print('experiment results are:', accuracy)

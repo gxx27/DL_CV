@@ -1,4 +1,3 @@
-import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -62,15 +61,16 @@ class ConvAttention(nn.Module):
         new_k = self.transfer_dim(k)
         new_v = self.transfer_dim(v)
         
-        att_scores = torch.matmul(new_q, new_k.transpose(-1,-2)) # batch*12*5*64 * batch*12*64*5
-        att_scores /= math.sqrt(self.attention_head) # batch*12*5*5
+        new_k = F.softmax(new_k, dim=-1)
+        att_scores = torch.matmul(new_k.transpose(-1, -2), new_v)
         
-        att_probs = F.softmax(att_scores, dim=-1)
-        att_probs = self.drop1(att_probs)
-        
-        result = torch.matmul(att_probs, new_v) # batch*12*5*64
+        new_q = F.softmax(new_q, dim=-1)
+        att_probs = torch.matmul(new_q, att_scores)
+
+        result = self.drop1(att_probs)
+
         result = result.permute(0, 2, 1, 3).contiguous() # batch*12*5*64 -> batch*5*12*64
-        
+
         new_shape = result.size()[:-2] + (self.all_head,) # must include ',' to become a tensor
         result = result.view(*new_shape)
         
