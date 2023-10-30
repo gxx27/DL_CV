@@ -32,7 +32,7 @@ if __name__ == '__main__':
     trainset = datasets.CIFAR10('datasets', train=True, download=False, transform=transform)
     trainloader = DataLoader(trainset, batch_size=args.batch, num_workers=12, shuffle=True)
     testset = datasets.CIFAR10('datasets', train=False, download=False, transform=transform)
-    testloader = DataLoader(trainset, batch_size=args.batch, num_workers=12, shuffle=False)
+    testloader = DataLoader(testset, batch_size=args.batch, num_workers=12, shuffle=False)
     
     input_size = trainset[0][0].size(-1)
     batch_size = args.batch
