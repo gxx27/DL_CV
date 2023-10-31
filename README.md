@@ -29,3 +29,7 @@ linear_attention.py: 使用线性注意力机制优化原有多头自注意力�
 train_vit.py: ViT训练函数
 
 vision_transformer.py: ViT模型
+
+advanced_version.py: 使用DDP+AMP加速模型训练, 并将[3,32,32]->[3,224,224]的图片以改善测试精度
+
+run.sh: 使用多卡训练的脚本
