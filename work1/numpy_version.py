@@ -25,6 +25,7 @@ if __name__ == "__main__":
     INPUT_DIM = 2
     HIDDEN_DIM = 32
     OUTPUT_DIM = 2
+    activate = 'tanh'
 
     # model
     w_1 = np.random.normal(0, 0.01, size=(INPUT_DIM, HIDDEN_DIM))
@@ -33,14 +34,20 @@ if __name__ == "__main__":
     w_2 = np.random.normal(0, 0.01, size=(HIDDEN_DIM, OUTPUT_DIM))
     b_2 = np.zeros(OUTPUT_DIM)
 
+
     # training
     for _ in range(EPOCH):
         for x, y in generate_batch(BATCH_SIZE, x_train, y_train): # training
             # forward 
             z_1 = np.matmul(x, w_1) + b_1
-            a_1 = np.maximum(0, z_1) # relu activate function
-            # a_1 = np.tanh(z_1) # tanh activate function
-            # a_1 = 1 / (1 + np.exp(-z_1)) # sigmoid activate function
+            
+            if activate == 'relu': # relu activate function
+                a_1 = np.maximum(0, z_1) 
+            elif activate == 'tanh': # tanh activate function
+                a_1 = np.tanh(z_1) 
+            elif activate == 'sigmoid': # sigmoid activate function
+                a_1 = 1 / (1 + np.exp(-z_1)) 
+                
             z_2 = np.matmul(a_1, w_2) + b_2
             exp_scores = np.exp(z_2)
             probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
@@ -51,7 +58,14 @@ if __name__ == "__main__":
 
             dw_2 = np.matmul(a_1.T, delta_2)
             db_2 = np.sum(delta_2, axis=0)
-            delta_1 = np.matmul(delta_2, w_2.T) * (1 - np.power(a_1, 2))
+            
+            if activate == 'relu':
+                delta_1 = np.matmul(delta_2, w_2.T) * (a_1 > 0)
+            elif activate == 'tanh':
+                delta_1 = np.matmul(delta_2, w_2.T) * (1 - np.power(a_1, 2))
+            elif activate == 'sigmoid':
+                fx = 1 / (1 + np.exp(-a_1))
+                delta_1 = np.matmul(delta_2, w_2.T) * (fx * (1 - fx))
 
             dw_1 = np.dot(x.T, delta_1)
             db_1 = np.sum(delta_1, axis=0)
