@@ -25,7 +25,7 @@ if __name__ == "__main__":
     INPUT_DIM = 2
     HIDDEN_DIM = 32
     OUTPUT_DIM = 2
-    activate = 'tanh'
+    activate = 'sigmoid'
 
     # model
     w_1 = np.random.normal(0, 0.01, size=(INPUT_DIM, HIDDEN_DIM))
@@ -64,8 +64,7 @@ if __name__ == "__main__":
             elif activate == 'tanh':
                 delta_1 = np.matmul(delta_2, w_2.T) * (1 - np.power(a_1, 2))
             elif activate == 'sigmoid':
-                fx = 1 / (1 + np.exp(-a_1))
-                delta_1 = np.matmul(delta_2, w_2.T) * (fx * (1 - fx))
+                delta_1 = np.matmul(delta_2, w_2.T) * (a_1 * (1 - a_1))
 
             dw_1 = np.dot(x.T, delta_1)
             db_1 = np.sum(delta_1, axis=0)
